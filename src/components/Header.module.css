@@ -1,0 +1,54 @@
+/* style border-botom on header a is in App.css*/
+
+.navbar {
+  display: none;
+  gap: 10px;
+  align-items: center;
+}
+a{
+font-size: 1.2rem;
+}
+.navbar.active {
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 40px;
+    
+}
+.button{
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 20px;
+    z-index: 1;
+    font-size: 30px;
+}
+@media (min-width: 1024px) {
+  .navbar {
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 60px;
+    margin-right: 60px;
+  }
+
+  .button {
+    display: none; /* Ocultar botón en desktop */
+  }
+
+}
+@media(max-width:1024px){
+  .navbar.active {
+    display: flex;
+    flex-direction: column;
+}
+.imgLogo{
+  width: 70px;
+}
+a{
+  font-size: .8rem;
+}
+}

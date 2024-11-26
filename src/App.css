@@ -1,0 +1,8 @@
+.outlet{
+    height: 100%;
+}
+.border-white {
+    display: flex;
+    justify-content: center;
+    max-width: max-content;
+  }

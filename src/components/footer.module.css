@@ -1,0 +1,9 @@
+.footer{
+    display: flex;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+}
+footer{
+    width: 100%;
+}
