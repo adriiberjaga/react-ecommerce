@@ -7,7 +7,7 @@ export default function ErrorPage() {
     <>
       <Header></Header>
       <div>
-        <h1>Ha ocurrido un problema</h1>
+        <h1>Ha ocurrido un problema.</h1>
         {isError(error) && <p>Status: {error.statusText}</p>}
         {/* si error es && (verdad) haces el p */}
       </div>
