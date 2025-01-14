@@ -14,12 +14,15 @@ function HomePage() {
   const filteredProducts = products?.filter(product =>
     product.id !== undefined && idsToShow.includes(product.id)
   );
-
+  if (!products) {
+    return <div>Loading...</div>
+}
   return (
     <div className={styles.homepage}>
       <h1>Bienvenido a mi pagina de ecommerce</h1>
       <div className={styles.destacados}>
         <h3>Productos más destacados de esta semana..</h3>
+        <p>(Esta pagina esta hecha con una api de internet, por lo que es normal que tarde en cargar entre secciones)</p>
         <div className={styles.products}>
           {filteredProducts?.map((product) => (
             <div key={product.id} className={styles.productList__li}>

@@ -3,40 +3,30 @@ import { Link, useParams } from "react-router-dom";
 import useFetch from "../data/use-fetch";
 import { Product } from "../data/use-fetch";
 import { useState } from "react";
+import { useCart } from '../data/CartContext'; // Añade esta importación
 
 function ProductDetail() {
     const { id } = useParams();
     const product = useFetch<Product>(`https://fakestoreapi.com/products/${id}`);
-    const [isAdded, setIsAdded] = useState(false); // Estado para feedback visual
+    const [isAdded, setIsAdded] = useState(false);
+    const { agregarItem } = useCart(); // Usa el hook del contexto
 
     const addCard = () => {
         if (!product) return;
 
-        // Obtener el carrito actual del localStorage
-        const currentCart = JSON.parse(localStorage.getItem('cart') || '[]');
-
-        // Verificar si el producto ya está en el carrito
-        const existingProduct = currentCart.find((item: Product) => item.id === product.id);
-
-        let newCart;
-        if (existingProduct) {
-            // Si el producto ya existe, incrementar la cantidad
-            newCart = currentCart.map((item: Product) => 
-                item.id === product.id 
-                    ? { ...item, quantity: (item.quantity || 1) + 1 }
-                    : item
-            );
-        } else {
-            // Si el producto no existe, añadirlo con cantidad 1
-            newCart = [...currentCart, { ...product, quantity: 1 }];
+        // Usar el método del contexto en lugar de localStorage
+        if (product.id !== undefined) {
+            agregarItem({
+                id: product.id,
+                nombre: product.title || '',
+                precio: product.price ?? 0,
+                imagen: product.image
+            });
         }
 
-        // Guardar el nuevo carrito en localStorage
-        localStorage.setItem('cart', JSON.stringify(newCart));
-
-        // Feedback visual
+        // Mantener el mismo feedback visual
         setIsAdded(true);
-        setTimeout(() => setIsAdded(false), 2000); // Reset después de 2 segundos
+        setTimeout(() => setIsAdded(false), 2000);
     };
 
     if (!product) {
@@ -52,8 +42,8 @@ function ProductDetail() {
                     <p className={styles.productDetail__description}>{product.description}</p>
                     <p className={styles.productDetail__price}>${product.price}</p>
                     <div className={styles.button}>
-                        <button 
-                            onClick={addCard} 
+                        <button
+                            onClick={addCard}
                             className={`${styles.productDetail__carrito} ${isAdded ? styles.added : ''}`}
                         >
                             {isAdded ? '¡Añadido!' : 'Añadir al carrito'}
