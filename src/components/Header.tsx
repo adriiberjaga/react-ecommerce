@@ -1,12 +1,9 @@
 import { NavLink } from "react-router-dom";
-import logo from "../assets/descarga.png";
 import styles from "./Header.module.css";
 import { useState } from "react";
-import { useCart } from "../data/CartContext";
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false); // Añadimos el estado
-  const { items } = useCart();
   function toggleMenu() {
     setIsOpen(!isOpen); // Cambiamos el estado entre true y false
   }
